@@ -153,15 +153,10 @@ jobs:
     name: macOS
     runs-on: macos-11
     steps:
-    - name: use python3.9
-      run: |
-        brew install python@3.9
     - uses: actions/checkout@v2
     - name: Run build script
-      run: |
-        export PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
-        cd $GITHUB_WORKSPACE
-        npm i
+      run: |        
+        cd $GITHUB_WORKSPACE        
         sh ./macos.sh ${{env.VERSION}}
     - uses: actions/upload-artifact@v2
       with:
@@ -171,16 +166,11 @@ jobs:
   build_macos_dll:
     name: macOS-DLL
     runs-on: macos-11
-    steps:
-    - name: use python3.9
-      run: |
-        brew install python@3.9
+    steps:    
     - uses: actions/checkout@v2
     - name: Run build script
-      run: |
-        export PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
-        cd $GITHUB_WORKSPACE
-        npm i
+      run: |        
+        cd $GITHUB_WORKSPACE        
         sh ./macos_DLL.sh ${{env.VERSION}}
     - uses: actions/upload-artifact@v2
       with:
@@ -191,15 +181,10 @@ jobs:
     name: iOS
     runs-on: macos-11
     steps:
-    - name: use python3.9
-      run: |
-        brew install python@3.9
     - uses: actions/checkout@v2
     - name: Run build script
-      run: |
-        export PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
-        cd $GITHUB_WORKSPACE
-        npm i
+      run: |        
+        cd $GITHUB_WORKSPACE        
         sh ./ios.sh ${{env.VERSION}}
     - uses: actions/upload-artifact@v2
       with:
