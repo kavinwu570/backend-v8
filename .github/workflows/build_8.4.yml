@@ -151,14 +151,17 @@ jobs:
           
   build_macos:
     name: macOS
-    runs-on: macos-10.15
+    runs-on: macos-11
     steps:
+    - name: use python3.9
+      run: |
+        brew install python@3.9
     - uses: actions/checkout@v2
-    - name: Use Xcode 12.0 to use SDK 10.15
-      run: sudo xcode-select -switch "/Applications/Xcode_12.app"
     - name: Run build script
       run: |
+        export PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
         cd $GITHUB_WORKSPACE
+        npm i
         sh ./macos.sh ${{env.VERSION}}
     - uses: actions/upload-artifact@v2
       with:
@@ -167,14 +170,17 @@ jobs:
         
   build_macos_dll:
     name: macOS-DLL
-    runs-on: macos-10.15
+    runs-on: macos-11
     steps:
+    - name: use python3.9
+      run: |
+        brew install python@3.9
     - uses: actions/checkout@v2
-    - name: Use Xcode 12.0 to use SDK 10.15
-      run: sudo xcode-select -switch "/Applications/Xcode_12.app"
     - name: Run build script
       run: |
+        export PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
         cd $GITHUB_WORKSPACE
+        npm i
         sh ./macos_DLL.sh ${{env.VERSION}}
     - uses: actions/upload-artifact@v2
       with:
@@ -183,14 +189,17 @@ jobs:
 
   build_ios:
     name: iOS
-    runs-on: macos-10.15
+    runs-on: macos-11
     steps:
+    - name: use python3.9
+      run: |
+        brew install python@3.9
     - uses: actions/checkout@v2
-    - name: Use Xcode 12.0 to use SDK 10.15
-      run: sudo xcode-select -switch "/Applications/Xcode_12.app"
     - name: Run build script
       run: |
+        export PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
         cd $GITHUB_WORKSPACE
+        npm i
         sh ./ios.sh ${{env.VERSION}}
     - uses: actions/upload-artifact@v2
       with:
@@ -214,7 +223,7 @@ jobs:
   #      path: ~/v8/v8/output/**/*
         
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: [build_android_arm_v8,build_android_arm_v7,build_android_x86_64,build_linux,build_linux_arm64,build_windows,build_windows_md,build_windows_32,build_macos,build_ios,build_windows_md_dll,build_macos_dll]
     steps:
       - uses: actions/download-artifact@v1
